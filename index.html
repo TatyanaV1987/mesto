@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Путешествия по России</title>
+</head>
+
+<body class="body">
+    <div class="page">
+        <header class="header">
+            <img src="images/logo.png" class="logo logo_place_header" alt="Логотип сайта Путешествия Место">
+        </header>
+
+        <main class="content">
+            <section class="profile">
+                <img src="./images/1.jpg" class="profile__avatar" alt="Фотография исследователя">
+                <div class="profile__info">
+                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <button type="button" class="profile__edit-button" aria-label="edit"></button>
+                    <p class="profile__profession">Исследователь океана</p>
+                </div>
+                <button type="button" class="profile__add-button" aria-label="add"></button>
+            </section>
+
+
+            <section class="elements">
+                <ul class="elements__list">
+                    <li class="element">
+                        <img src="./images/karachaevsk.jpg" class="element__image" alt="Карачаевск">
+                        <div class="element__description">
+                            <h2 class="element__title">Карачаевск</h2>
+                            <button type="button" class="element__image-heart" aria-label="like"></button>
+                        </div>
+                    </li>
+                    <li class="element">
+                        <img src="./images/elbrus.jpg" class="element__image" alt="Эльбрус">
+                        <div class="element__description">
+                            <h2 class="element__title">Гора Эльбрус</h2>
+                            <button type="button" class="element__image-heart" aria-label="like"></button>
+                        </div>
+                    </li>
+                    <li class="element">
+                        <img src="./images/dombay.jpg" class="element__image" alt="Домбай">
+                        <div class="element__description">
+                            <h2 class="element__title">Домбай</h2>
+                            <button type="button" class="element__image-heart" aria-label="like"></button>
+                        </div>
+                    </li>
+                    <li class="element">
+                        <img src="./images/elbrus.jpg" class="element__image" alt="Эльбрус">
+                        <div class="element__description">
+                            <h2 class="element__title">Гора Эльбрус</h2>
+                            <button type="button" class="element__image-heart" aria-label="like"></button>
+                        </div>
+                    </li>
+                    <li class="element">
+                        <img src="./images/dombay.jpg" class="element__image" alt="Домбай">
+                        <div class="element__description">
+                            <h2 class="element__title">Домбай</h2>
+                            <button type="button" class="element__image-heart" aria-label="like"></button>
+                        </div>
+                    </li>
+                    <li class="element">
+                        <img src="./images/karachaevsk.jpg" class="element__image" alt="Карачаево-Черкесск">
+                        <div class="element__description">
+                            <h2 class="element__title">Карачаево-Ч...</h2>
+                            <button type="button" class="element__image-heart" aria-label="like"></button>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+        </footer>
+
+    </div>
+
+    <div class="popup">
+        <form class="popup__container" name="edit-profile">
+            <h3 class="popup__title">Редактировать профиль</h3>
+
+            <fieldset name="profile" class="popup__form">
+                <input type="text" class="popup__input popup__input_type_name" name="nameInput" required>
+                <input type="text" class="popup__input popup__input_type_profession" name="jobInput" required>
+            </fieldset>
+
+            <button type="submit" class="popup__submit">Сохранить</button>
+            <button type="button" class="popup__close" aria-label="close"></button>
+
+        </form>
+    </div>
+
+    <script src="script/script.js"></script>
+
+</body>
+</html>

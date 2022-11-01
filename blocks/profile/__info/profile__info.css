@@ -1,0 +1,16 @@
+.profile__info {
+    padding-left: 30px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-items: flex-start;
+    align-items: center;
+    grid-template-areas:
+        "name edit-button"
+        "about about";
+}
+
+@media screen and (max-width: 320px) {
+    .profile__info {
+        padding: 0;
+    }
+}
