@@ -15,20 +15,19 @@ function showPopup() {
     nameInput.value = userName.textContent;
     jobInput.value = profession.textContent;
 }
-showPopupButton.addEventListener('click', showPopup);
 
 function closePopup() {
     popup.classList.remove('popup_opened');
-    userName.textContent = 'gfghdgfd';
-    profession.textContent = jobInput.value;
 }
+
+showPopupButton.addEventListener('click', showPopup);
 closePopupButton.addEventListener('click', closePopup);
 
 
 // Обработчик «отправки» формы
-function formSubmitHandler (evt) {
+function formSubmitHandler(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    
+
     // Вставьте новые значения с помощью textContent
     userName.textContent = nameInput.value;
     profession.textContent = jobInput.value;

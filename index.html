@@ -66,7 +66,7 @@
                     <li class="element">
                         <img src="./images/karachaevsk.jpg" class="element__image" alt="Карачаево-Черкесск">
                         <div class="element__description">
-                            <h2 class="element__title">Карачаево-Ч...</h2>
+                            <h2 class="element__title">Карачаево-Черкесия</h2>
                             <button type="button" class="element__image-heart" aria-label="like"></button>
                         </div>
                     </li>
@@ -81,21 +81,21 @@
     </div>
 
     <div class="popup">
-        <form class="popup__container" name="edit-profile">
+        <div class="popup__inner">
             <h3 class="popup__title">Редактировать профиль</h3>
-
-            <fieldset name="profile" class="popup__form">
-                <input type="text" class="popup__input popup__input_type_name" name="nameInput" required>
-                <input type="text" class="popup__input popup__input_type_profession" name="jobInput" required>
-            </fieldset>
-
-            <button type="submit" class="popup__submit">Сохранить</button>
+            <form class="popup__container" name="edit-profile">
+                <fieldset name="profile" class="popup__form">
+                    <input type="text" class="popup__input popup__input_type_name" name="nameInput" required>
+                    <input type="text" class="popup__input popup__input_type_profession" name="jobInput" required>
+                </fieldset>
+                <button type="submit" class="popup__submit">Сохранить</button>
+            </form>
             <button type="button" class="popup__close" aria-label="close"></button>
-
-        </form>
+        </div>
     </div>
 
     <script src="script/script.js"></script>
 
 </body>
+
 </html>
