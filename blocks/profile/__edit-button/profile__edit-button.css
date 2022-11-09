@@ -1,5 +1,5 @@
 .profile__edit-button {
-    background: transparent;
+    all: unset;
     border: 1px solid #FFFFFF;
     width: 24px;
     height: 24px;
