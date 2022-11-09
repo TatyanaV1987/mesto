@@ -4,9 +4,9 @@ const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
 const popupImage = document.querySelector('.popup_type_image');
 //найдем кнопки закрытия попап по отдельности
-const closePopupEdit = popupEdit.querySelector('.popup__close');
-const closePopupAdd = popupAdd.querySelector('.popup__close');
-const closePopupImage = popupImage.querySelector('.popup__close');
+const buttonClousePopupEdit = popupEdit.querySelector('.popup__close');
+const buttonClousePopupAdd = popupAdd.querySelector('.popup__close');
+const buttonClousePopupImage = popupImage.querySelector('.popup__close');
 //найдем кнопки открытия попап по отдельности
 const buttonShowPopupEdit = document.querySelector('.profile__edit-button');
 const buttonShowPopupAdd = document.querySelector('.profile__add-button');
@@ -44,10 +44,9 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
 }
 
-closePopupEdit.addEventListener('click', () => closePopup(popupEdit));
-closePopupAdd.addEventListener('click', () => closePopup(popupAdd));
-closePopupImage.addEventListener('click', () => closePopup(popupImage));
-
+buttonClousePopupEdit.addEventListener('click', () => closePopup(popupEdit));
+buttonClousePopupAdd.addEventListener('click', () => closePopup(popupAdd));
+buttonClousePopupImage.addEventListener('click', () => closePopup(popupImage));
 
 
 
@@ -70,46 +69,13 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 
 
-// массив карточек
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    },
-];
-
-
-
 
 // Дом узлы
 
 const cardContainer = document.querySelector('.elements__list'); //нашли весь список в который будем вставлять наш темплейт
 const initialCardsForm = document.querySelector('.popup__container_add'); //нашли всю форму в попап Add для добавления нового события
-
 const titleImage = initialCardsForm.querySelector('.popup__input_type_title'); // находим поле ввода названия фото в popupAdd
 const linkImage = initialCardsForm.querySelector('.popup__input_type_link'); // находим поле воода содержащую ссылку на фото в popupAdd
-
-
 
 
 
@@ -175,8 +141,8 @@ function handleSubmitAddCardList(event) {
         link: linkImage.value
     });
 
-    titleImage.value = '';
-    linkImage.value = '';
+
+    initialCardsForm.reset(); // очистим поля
 
     closePopup(popupAdd);
 };
