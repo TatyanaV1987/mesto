@@ -21,10 +21,10 @@ const userName = document.querySelector('.profile__title');
 const profession = document.querySelector('.profile__profession');
 
 
-
 // функция открытия папапов
 function showPopup(popup) { // добавлю аргументом все попапы
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', handleEscPress); //накладываем слушатель на нажатие на кнопку esc + включаем функцию handleEscPress
 }
 
 buttonShowPopupAdd.addEventListener('click', () => showPopup(popupAdd));
@@ -42,11 +42,31 @@ buttonShowPopupEdit.addEventListener('click', showPopupEdit);
 // функция  закрытия попапов
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', handleEscPress); //удаляем слушатель на нажатие на кнопку esc + включаем функцию handleEscPress
 }
+// closePopupBackground function
+const closeByOverlayClick = (evt) => {
+    if (evt.target.classList.contains('popup')) { closePopup(evt.target) }
+}
+// closePopupBtnEscape function
+const handleEscPress = (evt) => {
+    const popup = document.querySelector('.popup_opened');
+    if (evt.key === 'Escape') {
+        closePopup(popup);
+    }
+};
+
+
 
 buttonClousePopupEdit.addEventListener('click', () => closePopup(popupEdit));
 buttonClousePopupAdd.addEventListener('click', () => closePopup(popupAdd));
 buttonClousePopupImage.addEventListener('click', () => closePopup(popupImage));
+
+// closePopupBackground
+popupEdit.addEventListener('click', closeByOverlayClick);
+popupAdd.addEventListener('click', closeByOverlayClick);
+popupImage.addEventListener('click', closeByOverlayClick);
+
 
 
 
@@ -97,7 +117,7 @@ const templateElement = document.querySelector('#image-template').content.queryS
 // 7. Генерация карточки
 // 8.
 const handleDeliteCard = (event) => {
-    event.target.closest('.element').remove(); //метод closest ищет ближайшего родителя, его и добавим
+    event.target.closest('.element').remove(); //метод closest ищет ближайшего родителя
 }
 
 const handleLikeCard = (event) => {
@@ -130,7 +150,6 @@ const generateCard = (dataCard) => {
 
 
 
-
 // 2. Обработчики событий
 function handleSubmitAddCardList(event) {
     event.preventDefault();
@@ -149,17 +168,12 @@ function handleSubmitAddCardList(event) {
 
 
 
-
-
 // 4. Добавление карточки
 const renderCard = (dataCard) => {
     cardContainer.prepend(generateCard(dataCard)); // метод Prepend - добавить новый элемент в родительский
 }
-
 // 1. Рендер всех карточек
 initialCardsForm.addEventListener("submit", handleSubmitAddCardList);
-
-
 // 3. пробежимся по массиву и вызываем функцию renderCard
 initialCards.forEach((dataCard) => {
     renderCard(dataCard);
