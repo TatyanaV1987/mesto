@@ -1,4 +1,4 @@
-const popup = document.querySelector('.popup');
+const allPopup = document.querySelector('.popup');
 //найдем попапы по отдельности
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
@@ -14,11 +14,12 @@ const buttonShowPopupAdd = document.querySelector('.profile__add-button');
 const titlePopupImage = document.querySelector('.popup__title_image');
 //найдем фото в popupImage
 const photoPopupImage = document.querySelector('.popup__image');
-const formElement = document.querySelector('.popup__container');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_profession');
 const userName = document.querySelector('.profile__title');
 const profession = document.querySelector('.profile__profession');
+
+const addCardButtonSave = popupAdd.querySelector('.popup__submit');
 
 
 // функция открытия папапов
@@ -26,9 +27,7 @@ function showPopup(popup) { // добавлю аргументом все поп
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', handleEscPress); //накладываем слушатель на нажатие на кнопку esc + включаем функцию handleEscPress
 }
-
 buttonShowPopupAdd.addEventListener('click', () => showPopup(popupAdd));
-
 
 // отдельная функция для попапа Edit, т.к. его полям нужны значения
 function showPopupEdit() {
@@ -37,7 +36,6 @@ function showPopupEdit() {
     showPopup(popupEdit); // ну и откроем его общей функцией
 }
 buttonShowPopupEdit.addEventListener('click', showPopupEdit);
-
 
 // функция  закрытия попапов
 function closePopup(popup) {
@@ -50,13 +48,11 @@ const closeByOverlayClick = (evt) => {
 }
 // closePopupBtnEscape function
 const handleEscPress = (evt) => {
-    const popup = document.querySelector('.popup_opened');
     if (evt.key === 'Escape') {
+        const popup = document.querySelector('.popup_opened');
         closePopup(popup);
     }
 };
-
-
 
 buttonClousePopupEdit.addEventListener('click', () => closePopup(popupEdit));
 buttonClousePopupAdd.addEventListener('click', () => closePopup(popupAdd));
@@ -67,37 +63,22 @@ popupEdit.addEventListener('click', closeByOverlayClick);
 popupAdd.addEventListener('click', closeByOverlayClick);
 popupImage.addEventListener('click', closeByOverlayClick);
 
-
-
-
+const allForm = document.querySelector('.popup__container');
 // Обработчик «отправки» формы
-function formSubmitHandler(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    // Вставьте новые значения с помощью textContent
+function allFormSubmitHandler(evt) {
+    evt.preventDefault();
     userName.textContent = nameInput.value;
     profession.textContent = jobInput.value;
-
-    closePopup(popup);
+    closePopup(allPopup);
 }
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
-
-
-
-
-
-
+// Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
+allForm.addEventListener('submit', allFormSubmitHandler);
 
 // Дом узлы
-
 const cardContainer = document.querySelector('.elements__list'); //нашли весь список в который будем вставлять наш темплейт
 const initialCardsForm = document.querySelector('.popup__container_add'); //нашли всю форму в попап Add для добавления нового события
 const titleImage = initialCardsForm.querySelector('.popup__input_type_title'); // находим поле ввода названия фото в popupAdd
 const linkImage = initialCardsForm.querySelector('.popup__input_type_link'); // находим поле воода содержащую ссылку на фото в popupAdd
-
-
 
 // отдельная функция для попапа Image, т.к. его полям нужны значения
 function showPopupImages(name, link) {
@@ -108,11 +89,8 @@ function showPopupImages(name, link) {
     showPopup(popupImage); // ну и откроем его общей функцией
 };
 
-
-
 // 6. Шаблоны
 const templateElement = document.querySelector('#image-template').content.querySelector('.element');
-
 
 // 7. Генерация карточки
 // 8.
@@ -124,19 +102,18 @@ const handleLikeCard = (event) => {
     event.target.closest('.element__image-heart').classList.toggle('element__image-heart_active');
 }
 
-
 const generateCard = (dataCard) => {
     const newCard = templateElement.cloneNode(true);
 
     const image = newCard.querySelector('.element__image');
     image.src = dataCard.link;
+    image.setAttribute("alt", titleImage.value);
 
     const title = newCard.querySelector('.element__title');
     title.textContent = dataCard.name;
 
-
-    const deliteBtn = newCard.querySelector('.element__image-trash');
-    deliteBtn.addEventListener('click', handleDeliteCard);
+    const btnDelete = newCard.querySelector('.element__image-trash');
+    btnDelete.addEventListener('click', handleDeliteCard);
 
     const likeBtn = newCard.querySelector('.element__image-heart');
     likeBtn.addEventListener('click', handleLikeCard);
@@ -148,25 +125,21 @@ const generateCard = (dataCard) => {
     return newCard;
 }
 
-
-
 // 2. Обработчики событий
 function handleSubmitAddCardList(event) {
     event.preventDefault();
-
     // 5.    
     renderCard({
         name: titleImage.value,
         link: linkImage.value
     });
-
-
     initialCardsForm.reset(); // очистим поля
 
     closePopup(popupAdd);
+
+    addCardButtonSave.disabled = true;
+    addCardButtonSave.classList.add(config.inactiveButtonClass);
 };
-
-
 
 // 4. Добавление карточки
 const renderCard = (dataCard) => {
@@ -175,6 +148,4 @@ const renderCard = (dataCard) => {
 // 1. Рендер всех карточек
 initialCardsForm.addEventListener("submit", handleSubmitAddCardList);
 // 3. пробежимся по массиву и вызываем функцию renderCard
-initialCards.forEach((dataCard) => {
-    renderCard(dataCard);
-});
+initialCards.forEach(renderCard);

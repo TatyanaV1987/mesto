@@ -1,12 +1,3 @@
-const config = {
-    formSelector: '.popup__container',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit',
-    inactiveButtonClass: 'popup__submit_inactive',
-    inputErrorClass: 'popup__input_type_error',
-  }; 
-
-
 // Функция для всех форм на странице
 const enableValidation = (configElement) => {
     const formList = Array.from(document.querySelectorAll(configElement.formSelector));
@@ -82,8 +73,7 @@ const hasInvalidInput = (inputList) => {
 
 
 
-// Функция принимает массив полей ввода
-// и элемент кнопки, состояние которой нужно менять
+// Функция принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
 const toggleButtonState = (inputList, buttonElement) => {
     // Если есть хотя бы один невалидный инпут
     if (hasInvalidInput(inputList)) {
@@ -92,10 +82,6 @@ const toggleButtonState = (inputList, buttonElement) => {
     } else {
       // иначе сделай кнопку активной
       buttonElement.classList.remove(config.inactiveButtonClass);
+      buttonElement.removeAttribute("disabled", true);
     }
   };
-
-
-
-
-
