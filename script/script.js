@@ -1,4 +1,3 @@
-const allPopup = document.querySelector('.popup');
 //найдем попапы по отдельности
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
@@ -19,7 +18,7 @@ const jobInput = document.querySelector('.popup__input_type_profession');
 const userName = document.querySelector('.profile__title');
 const profession = document.querySelector('.profile__profession');
 
-const addCardButtonSave = popupAdd.querySelector('.popup__submit');
+const buttonCardSave = popupAdd.querySelector('.popup__submit');
 
 
 // функция открытия папапов
@@ -69,7 +68,7 @@ function allFormSubmitHandler(evt) {
     evt.preventDefault();
     userName.textContent = nameInput.value;
     profession.textContent = jobInput.value;
-    closePopup(allPopup);
+    closePopup(popupEdit);
 }
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 allForm.addEventListener('submit', allFormSubmitHandler);
@@ -137,8 +136,7 @@ function handleSubmitAddCardList(event) {
 
     closePopup(popupAdd);
 
-    addCardButtonSave.disabled = true;
-    addCardButtonSave.classList.add(config.inactiveButtonClass);
+    disabledButtonState();
 };
 
 // 4. Добавление карточки

@@ -85,3 +85,8 @@ const toggleButtonState = (inputList, buttonElement) => {
       buttonElement.removeAttribute("disabled", true);
     }
   };
+
+  function disabledButtonState() {
+    buttonCardSave.disabled = true;
+    buttonCardSave.classList.add(config.inactiveButtonClass);
+  }
