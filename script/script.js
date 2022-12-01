@@ -62,7 +62,7 @@ popupEdit.addEventListener('click', closeByOverlayClick);
 popupAdd.addEventListener('click', closeByOverlayClick);
 popupImage.addEventListener('click', closeByOverlayClick);
 
-const allForm = document.querySelector('.popup__container');
+const formPopupEdit = popupEdit.querySelector('.popup__container');
 // Обработчик «отправки» формы
 function allFormSubmitHandler(evt) {
     evt.preventDefault();
@@ -71,7 +71,7 @@ function allFormSubmitHandler(evt) {
     closePopup(popupEdit);
 }
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-allForm.addEventListener('submit', allFormSubmitHandler);
+formPopupEdit.addEventListener('submit', allFormSubmitHandler);
 
 // Дом узлы
 const cardContainer = document.querySelector('.elements__list'); //нашли весь список в который будем вставлять наш темплейт
