@@ -25,7 +25,6 @@
                 <button type="button" class="profile__add-button" aria-label="add"></button>
             </section>
 
-
             <section class="elements">
                 <ul class="elements__list">
 
@@ -44,7 +43,7 @@
     <div class="popup popup_type_edit">
         <div class="popup__inner">
             <h3 class="popup__title">Редактировать профиль</h3>
-            <form id="form" class="popup__container" name="edit-profile" novalidate>
+            <form id="formEdit" class="popup__container" name="edit-profile" novalidate>
                 <fieldset name="profile" class="popup__form">
                     <input id="name-input" type="text" class="popup__input popup__input_type_name" name="nameInput" minlength="2" maxlength="40" required>
                     <span class="name-input-error popup__input-error"></span>
@@ -61,7 +60,7 @@
     <div class="popup popup_type_add">
         <div class="popup__inner">
             <h3 class="popup__title">Новое место</h3>
-            <form class="popup__container popup__container_add" name="add-profile" novalidate>
+            <form id="formAddCard" class="popup__container popup__container_add" name="add-profile" novalidate>
                 <fieldset name="profile" class="popup__form">
                     <input id="title-input" type="text" class="popup__input popup__input_type_title" name="title" minlength="2" maxlength="30" required placeholder="Название">
                     <span class="title-input-error popup__input-error"></span>
@@ -96,8 +95,7 @@
 
     <script src="script/cards.js"></script>
     <script src="script/constants.js"></script>
-    <script src="script/script.js"></script>
-    <script src="script/validate.js"></script>
+    <script type="module" src="script/script.js"></script>
 
 </body>
 </html>
