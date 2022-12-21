@@ -8,103 +8,96 @@
 */
 
 class FormValidator {
-    //принимает в конструктор объект настроек с селекторами и классами формы;
-    //принимает вторым параметром элемент той формы, которая валидируется;
-  constructor(config, formElement) { 
+  //принимает в конструктор объект настроек с селекторами и классами формы;
+  //принимает вторым параметром элемент той формы, которая валидируется;
+  constructor(config, formElement) {
     this._config = config;
-    this._formElement = formElement;
+    this._formSelector = formElement;
+    this._formElement = document.querySelector(this._formSelector);
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(this._config.inputSelector)
+    );
+    this._submitButton = this._formElement.querySelector(
+      this._config.submitButtonSelector
+    );
   }
 
+  //функция показа ошибки. Функции передаем параметры: условное поле инпут и сообщение об ошибки
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    ); // назначим переменной errorElement : в этой форме найти id
+    inputElement.classList.add(this._config.inputErrorClass); // добавляем к полю класс со стилем RED - border
+    errorElement.textContent = errorMessage; // значением поля приравниваем к сообщению об ошибки. Так текст ошибки попадёт в нужное место.
+  }
 
+  //функция скрытия ошибки. Функции передаем параметр: условное поле инпут
+  _hideInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
+    inputElement.classList.remove(this._config.inputErrorClass); // удаляем класс со стилем RED - border
+    errorElement.textContent = "";
+  }
 
   //проверяем валидность поля
   // (Функция, которая проверяет formInput на корректность введённых данных и вызывает hideError и showError.)
-  _checkInputValidity(inputElement) { // в параметр укажем условное поле инпут
-    if (!inputElement.validity.valid) { 
+  _checkInputValidity(inputElement) {
+    // в параметр укажем условное поле инпут
+    if (!inputElement.validity.valid) {
       // Если поле не проходит валидацию, покажем ошибку
-      _showInputError(inputElement, inputElement.validationMessage); // вторым аргументом передайте функции showError сообщение об ошибке.
+      this._showInputError(inputElement, inputElement.validationMessage); // вторым аргументом передайте функции showError сообщение об ошибке.
     } else {
       // Если проходит, скроем
-      _hideInputError(inputElement);
+      this._hideInputError(inputElement);
     }
-  };
+  }
 
-
-//функция показа ошибки. Функции передаем параметры: условное поле инпут и сообщение об ошибки
- _showInputError(inputElement, errorMessage) {
-    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`); // назначим переменной errorElement : в этой форме найти id
-    inputElement.classList.add(inputErrorClass); // добавляем к полю класс со стилем RED - border
-    errorElement.textContent = errorMessage; // значением поля приравниваем к сообщению об ошибки. Так текст ошибки попадёт в нужное место.
-  };
-  
-  //функция скрытия ошибки. Функции передаем параметр: условное поле инпут
-  _hideInputError (inputElement) {
-    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(inputErrorClass); // удаляем класс со стилем RED - border
-    errorElement.textContent = '';
-  };
-
-//Создайте функцию hasInvalidInput. Пусть она обходит массив полей и отвечает на вопрос: «Есть ли здесь хотя бы одно поле,
-// которое не прошло валидацию?».
-_hasInvalidInput(inputList) { // inputList - это типа все поля
-    // проходим по этому массиву методом some
-    return inputList.some((inputElement) => {
-        // Если поле не валидно, колбэк вернёт true
-        // Обход массива прекратится и вся функция
-        // hasInvalidInput вернёт true
-        return !inputElement.validity.valid;
-    })
-};
-
-// Функция принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
-_toggleButtonState(inputList, buttonElement) {
-
-    // Если есть хотя бы один невалидный инпут 
-    if (_hasInvalidInput(inputList)) { //Если есть хотя бы одно поле, которое не прошло валидацию
+  _toggleButtonState() {
+    // Если есть хотя бы один невалидный инпут
+    if (this._hasInvalidInput()) {
+      //Если есть хотя бы одно поле, которое не прошло валидацию
       // сделай кнопку неактивной
-      buttonElement.classList.add(inactiveButtonClass); // возьми кнопку и добавь класс inactiveButtonClass
+      this._submitButton.setAttribute("disabled", true);
+      this._submitButton.classList.add(this._config.inactiveButtonClass); // возьми кнопку и добавь класс inactiveButtonClass
     } else {
       // иначе сделай кнопку активной
-      buttonElement.classList.remove(inactiveButtonClass);
-      buttonElement.removeAttribute("disabled", true);
+      this._submitButton.classList.remove(this._config.inactiveButtonClass);
+      this._submitButton.removeAttribute("disabled");
     }
-  };
+  }
 
-  // Функция для всех полей ввода на странице
-_setEventListeners(formElement) {
-    const inputList = Array.from(this._formElement.querySelectorAll(inputSelector));
-    const buttonElement = this._formElement.querySelector(submitButtonSelector);
-
-    inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      _checkInputValidity(inputElement);
-            // чтобы проверять его при изменении любого из полей
-      _toggleButtonState(inputList, buttonElement);
+  //Создайте функцию hasInvalidInput. Пусть она обходит массив полей и отвечает на вопрос: «Есть ли здесь хотя бы одно поле,
+  // которое не прошло валидацию?».
+  _hasInvalidInput() {
+    // inputList - это типа все поля
+    // проходим по этому массиву методом some
+    return this._inputList.some((inputElement) => {
+      // Если поле не валидно, колбэк вернёт true
+      // Обход массива прекратится и вся функция
+      // hasInvalidInput вернёт true
+      return !inputElement.validity.valid;
     });
-  });
-  };
+  }
 
+  resetValidation() {
+    this._toggleButtonState(); // <== управляем кнопкой ==
+    this.inputList.forEach((inputElement) => {
+      // чтобы проверять его при изменении любого из полей
+
+      this._hideInputError(inputElement); // <==очищаем ошибки ==
+    });
+  }
 
   // Функция для всех форм на странице (активации валидации)
-enableValidation() {
-    const formList = Array.from(this._formElement.querySelectorAll(this._config.formSelector));
-    formList.forEach((formElement) => {
-      // На каждое поле вешается слушатель
-      formElement.addEventListener('submit', function (evt) {
-            evt.preventDefault();
-        });
- 
-        setEventListeners(formElement);
+  enableValidation() {
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener("input", () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState();
+      });
     });
-};
-}
-
-
-  // Запретить кнопку submit
-
-  function disabledButtonState() {
-    buttonCardSave.disabled = true;
-    buttonCardSave.classList.add(config.inactiveButtonClass);
   }
+}
 
 export { FormValidator };
